@@ -11,27 +11,25 @@ import MapKit
 
 
 class ResultsViewController: UITableViewController{
+
+	var sentList: [String] = []
 	
-	
-	
-	
+
 	
 	@IBOutlet var ResultsTable: UITableView!
 	
-	let testArray = ["Pizza by Alfredo", "Alfredo's Pizza Cafe", "JJ's Diner"]
-	
-	
 	override func viewDidLoad() {
+
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return testArray.capacity
+		return sentList.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "StuffCell", for: indexPath)
-		cell.textLabel?.text = "\(testArray[indexPath.row])"
+		cell.textLabel?.text = "\(sentList[indexPath.item])"
 		return cell
 	}
 
