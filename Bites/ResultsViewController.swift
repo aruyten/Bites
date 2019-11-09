@@ -21,7 +21,6 @@ class ResultsViewController: UITableViewController{
 	@IBOutlet weak var NameCell: UILabel!
 	
 	override func viewDidLoad() {
-
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,10 +36,33 @@ class ResultsViewController: UITableViewController{
 		return cell
 	}
 
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
+	
+
+	override func tableView(_ tableView: UITableView,
+					  trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
+		   let favoriteAction = UIContextualAction(style: .normal, title:  "Favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+			   print("Update action ...")
+			   success(true)})
+		   favoriteAction.backgroundColor = .orange
+		   return UISwipeActionsConfiguration(actions: [favoriteAction])
+	   }
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 class StuffCell: UITableViewCell{
 	@IBOutlet weak var DistanceCell: UILabel!

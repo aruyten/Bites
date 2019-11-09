@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
+
 class CategoriesViewController: UIViewController{
 	
 	//list of restaurants from search
@@ -44,7 +45,8 @@ class CategoriesViewController: UIViewController{
 	//only transitions to results if location services are permitted
 	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 		//allows seque when location permissions are enabled
-		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways){
+		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+			CLLocationManager.authorizationStatus() == .authorizedAlways){
 			return true
 		}
 		//otherwise it alerts the user that they need location permissions
@@ -81,6 +83,8 @@ class CategoriesViewController: UIViewController{
 	
 //food search functions
 	func SearchForMexicanFood(){
+		MexicanList.removeAll()
+		
 		let request = MKLocalSearch.Request()
 		
 		let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
@@ -98,6 +102,7 @@ class CategoriesViewController: UIViewController{
 
 	
 	func SearchForPizzaFood(){
+		PizzaList.removeAll()
 		let request = MKLocalSearch.Request()
 		
 		let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
@@ -112,6 +117,7 @@ class CategoriesViewController: UIViewController{
 	}
 	
 	func SearchForChineseFood(){
+		ChineseList.removeAll()
 		let request = MKLocalSearch.Request()
 		
 		let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
