@@ -9,14 +9,12 @@ import UIKit
 import CoreLocation
 import MapKit
 
-
 class CategoriesViewController: UIViewController{
 	
 	//list of restaurants from search
 	var MexicanList: [(String, CLLocationDistance)] = []
 	var PizzaList: [(String, CLLocationDistance)]  = []
 	var ChineseList: [(String, CLLocationDistance)]  = []
-	
 	var sendingList: [(String, CLLocationDistance)]  = []
 	
 	//create location manager

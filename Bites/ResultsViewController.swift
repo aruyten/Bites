@@ -9,18 +9,23 @@
 import UIKit
 import MapKit
 
+var listOfFavorites: [String] = []
+
 
 class ResultsViewController: UITableViewController{
 
-	var sentList: [(String, CLLocationDistance)] = []
+	var favVC: FavoritesViewController?
 	
-
+	var sentList: [(String, CLLocationDistance)] = []
 	
 	@IBOutlet var ResultsTable: UITableView!
 	@IBOutlet weak var DistanceCell: UILabel!
 	@IBOutlet weak var NameCell: UILabel!
 	
 	override func viewDidLoad() {
+		if let fav = tabBarController?.viewControllers![1] {
+			favVC = (fav as! FavoritesViewController)
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,7 +33,6 @@ class ResultsViewController: UITableViewController{
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "StuffCell", for: indexPath)
 		cell.textLabel?.text = sentList[indexPath.item].0
 		//String(format: "%.1f", convertedValue)
@@ -43,26 +47,21 @@ class ResultsViewController: UITableViewController{
 	
 
 	override func tableView(_ tableView: UITableView,
-					  trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
-		   let favoriteAction = UIContextualAction(style: .normal, title:  "Favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-			   print("Update action ...")
-			   success(true)})
+		trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
+		let favoriteAction = UIContextualAction(style: .normal, title:  "Favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+			print("Update action ...")
+			self.addToFavorites(location: self.sentList[indexPath.item].0)
+			success(true)})
 		   favoriteAction.backgroundColor = .orange
 		   return UISwipeActionsConfiguration(actions: [favoriteAction])
 	   }
 
-
-
+	func addToFavorites(location: String){
+		listOfFavorites.append(location)
+		favVC?.tableView.reloadData()
+	}
 
 }
-
-
-
-
-
-
-
-
 
 class StuffCell: UITableViewCell{
 	@IBOutlet weak var DistanceCell: UILabel!
