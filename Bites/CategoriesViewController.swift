@@ -76,9 +76,12 @@ class CategoriesViewController: UIViewController{
 
         
         let layer = CAGradientLayer()
-        layer.frame = CGRect(x: 10, y: 10, width: 200, height: 100)
-        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
-        view.layer.addSublayer(layer)
+		layer.frame = CGRect(x: view.safeAreaLayoutGuide.layoutFrame.minX,
+							 y: view.safeAreaLayoutGuide.layoutFrame.minY,
+							 width: view.safeAreaLayoutGuide.layoutFrame.maxX,
+							 height: view.safeAreaLayoutGuide.layoutFrame.maxY)
+        layer.colors = [UIColor.purple.cgColor, UIColor.blue.cgColor]
+        view.layer.insertSublayer(layer, at: 0)
         
 		locationManager.delegate = self
 		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || 	CLLocationManager.authorizationStatus() == .authorizedAlways){
