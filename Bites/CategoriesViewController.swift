@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import CoreGraphics
 
 class CategoriesViewController: UIViewController{
     
@@ -25,6 +26,7 @@ class CategoriesViewController: UIViewController{
 	let locationManager = CLLocationManager()
 	
 	//category button outlets
+
 	@IBOutlet weak var MexicanButton: UIButton!
 	@IBOutlet weak var PizzaButton: UIButton!
 	@IBOutlet weak var ChineseButton: UIButton!
@@ -80,8 +82,16 @@ class CategoriesViewController: UIViewController{
 							 y: view.safeAreaLayoutGuide.layoutFrame.minY,
 							 width: view.safeAreaLayoutGuide.layoutFrame.maxX,
 							 height: view.safeAreaLayoutGuide.layoutFrame.maxY)
-        layer.colors = [UIColor.purple.cgColor, UIColor.blue.cgColor]
+		layer.colors = [UIColor.purple.cgColor, UIColor.blue.cgColor]
+		layer.startPoint = CGPoint(x: 0.4, y: 0.4)
+		layer.endPoint = CGPoint(x: 1, y: 1.0)
         view.layer.insertSublayer(layer, at: 0)
+		
+		MexicanButton.layer.cornerRadius =  15
+		PizzaButton.layer.cornerRadius = 15
+		ChineseButton.layer.cornerRadius = 15
+		
+		
         
 		locationManager.delegate = self
 		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || 	CLLocationManager.authorizationStatus() == .authorizedAlways){
