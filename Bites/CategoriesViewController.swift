@@ -10,7 +10,9 @@ import CoreLocation
 import MapKit
 
 class CategoriesViewController: UIViewController{
-	
+    
+    
+    
 	//list of restaurants from search
 	var MexicanList: [(String, CLLocationDistance)] = []
 	var PizzaList: [(String, CLLocationDistance)]  = []
@@ -19,7 +21,7 @@ class CategoriesViewController: UIViewController{
     //List that is passed to results view
     var sendingList: [(String, CLLocationDistance)]  = []
 	
-	//create location manager
+    //create location manager
 	let locationManager = CLLocationManager()
 	
 	//category button outlets
@@ -41,6 +43,7 @@ class CategoriesViewController: UIViewController{
 		ChineseList.sort{if ($0.1 != $1.1){return ($0.1 < $1.1)} else{return $0.0 < $1.0}}
 		sendingList = ChineseList
 	}
+    
 	
 	//only transitions to results if location services are permitted
 	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -58,15 +61,25 @@ class CategoriesViewController: UIViewController{
 		}
 	}
 	
+    
+    //sends data to results VC
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.destination is ResultsViewController{
 			let vc = segue.destination as? ResultsViewController
 			vc?.sentList = sendingList
 		}
 	}
+    
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+        
+        let layer = CAGradientLayer()
+        layer.frame = CGRect(x: 10, y: 10, width: 200, height: 100)
+        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
+        view.layer.addSublayer(layer)
+        
 		locationManager.delegate = self
 		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || 	CLLocationManager.authorizationStatus() == .authorizedAlways){
 			locationManager.requestLocation()
@@ -96,9 +109,7 @@ class CategoriesViewController: UIViewController{
 			let location = CLLocation(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
 			let distance = self.locationManager.location!.distance(from: location)
 			self.MexicanList.append((item.name!, distance))}})
-
-
-}
+    }
 
 	
 	func SearchForPizzaFood(){

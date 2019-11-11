@@ -102,10 +102,10 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="T2f-gU-4fq"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Yal-rx-XK3"/>
+                    <navigationItem key="navigationItem" title="Bites" id="Yal-rx-XK3"/>
                     <connections>
                         <outlet property="ChineseButton" destination="kLY-cf-hxG" id="6mv-y9-pQG"/>
                         <outlet property="MexicanButton" destination="6p0-8Z-tgK" id="cA4-aW-1Bf"/>
@@ -114,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cy8-pC-uSI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2471" y="251"/>
+            <point key="canvasLocation" x="2469.5652173913045" y="250.44642857142856"/>
         </scene>
         <!--Results-->
         <scene sceneID="eU1-9Q-hSD">
@@ -185,6 +185,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zkS-63-lN7"/>
+        <segue reference="9R4-Vm-yKL"/>
     </inferredMetricsTieBreakers>
 </document>
