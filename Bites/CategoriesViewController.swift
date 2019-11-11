@@ -15,7 +15,9 @@ class CategoriesViewController: UIViewController{
 	var MexicanList: [(String, CLLocationDistance)] = []
 	var PizzaList: [(String, CLLocationDistance)]  = []
 	var ChineseList: [(String, CLLocationDistance)]  = []
-	var sendingList: [(String, CLLocationDistance)]  = []
+	
+    //List that is passed to results view
+    var sendingList: [(String, CLLocationDistance)]  = []
 	
 	//create location manager
 	let locationManager = CLLocationManager()
