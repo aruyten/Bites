@@ -29,18 +29,16 @@ class FavoritesViewController: UITableViewController{
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
-    
-    
-    
-    override func tableView(_ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
-        let favoriteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Remove favorite action ...")
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-            success(true)})
-           favoriteAction.backgroundColor = .red
-           return UISwipeActionsConfiguration(actions: [favoriteAction])
-       }
+	
+	
+	//allows for user to remove items from favorites list
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == UITableViewCell.EditingStyle.delete {
+			listOfFavorites.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+		}
+	}
+	
     
     
     
