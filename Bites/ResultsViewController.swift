@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+//allows global access to listOfFavorites
 var listOfFavorites: [String] = []
 
 
@@ -28,24 +29,28 @@ class ResultsViewController: UITableViewController{
 		}
 	}
 
+	//sets number of rows equal to sent list
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return sentList.count
 	}
 	
+	//fills rows with name and distance
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "StuffCell", for: indexPath)
 		cell.textLabel?.text = sentList[indexPath.item].0
-		//String(format: "%.1f", convertedValue)
-		cell.detailTextLabel?.text = String(format: "%.2f", sentList[indexPath.item].1) +  " Meters"
+		
+		//converts to a 2 decimal float and also converts meters into miles
+		cell.detailTextLabel?.text = String(format: "%.2f", (sentList[indexPath.item].1) * 0.000621371192) +  " Miles"
 		return cell
 	}
 
-	
+	//number of sections is 1
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 	
 
+	//allows for left swipe to allow adding row to favorites
 	override func tableView(_ tableView: UITableView,
 		trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
 		let favoriteAction = UIContextualAction(style: .normal, title:  "Favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -56,6 +61,7 @@ class ResultsViewController: UITableViewController{
 		   return UISwipeActionsConfiguration(actions: [favoriteAction])
 	   }
 
+	
 	func addToFavorites(location: String){
 		listOfFavorites.append(location)
 		favVC?.tableView.reloadData()
@@ -63,7 +69,8 @@ class ResultsViewController: UITableViewController{
 
 }
 
+
+//class to help with formatting of cells
 class StuffCell: UITableViewCell{
 	@IBOutlet weak var DistanceCell: UILabel!
-
 }

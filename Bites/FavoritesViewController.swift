@@ -5,21 +5,16 @@
 //  Created by Adam Ruyten on 11/6/19.
 //  Copyright © 2019 Adam Ruyten. All rights reserved.
 //
-
 import UIKit
 
 class FavoritesViewController: UITableViewController{
-	
 
-    
-	override func viewDidLoad() {
-	}
-	
-	
+	//sets number of rows equal to size of listoffavorites
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return listOfFavorites.count
 	}
 	
+	//fills cell with values in listoffavorites
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "StuffCell", for: indexPath)
 		cell.textLabel?.text = listOfFavorites[indexPath.item]
@@ -30,7 +25,6 @@ class FavoritesViewController: UITableViewController{
 		return 1
 	}
 	
-	
 	//allows for user to remove items from favorites list
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == UITableViewCell.EditingStyle.delete {
@@ -38,8 +32,4 @@ class FavoritesViewController: UITableViewController{
 			tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
 		}
 	}
-	
-    
-    
-    
 }

@@ -25,12 +25,16 @@ class CategoriesViewController: UIViewController{
     //create location manager
 	let locationManager = CLLocationManager()
 	
-	//category button outlets
+	let distanceFormatter: MKDistanceFormatter = MKDistanceFormatter.init()
 
+	
+	//category button outlets
 	@IBOutlet weak var MexicanButton: UIButton!
 	@IBOutlet weak var PizzaButton: UIButton!
 	@IBOutlet weak var ChineseButton: UIButton!
 	
+	
+	//category button actions
 	@IBAction func PressMexicanButton(_ sender: UIButton) {
 		MexicanList.sort{if ($0.1 != $1.1){return ($0.1 < $1.1)} else{return $0.0 < $1.0}}
 		sendingList = MexicanList
@@ -76,7 +80,7 @@ class CategoriesViewController: UIViewController{
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-        
+		//sets backround as a gradient color
         let layer = CAGradientLayer()
 		layer.frame = CGRect(x: view.safeAreaLayoutGuide.layoutFrame.minX,
 							 y: view.safeAreaLayoutGuide.layoutFrame.minY,
@@ -84,16 +88,18 @@ class CategoriesViewController: UIViewController{
 							 height: view.safeAreaLayoutGuide.layoutFrame.maxY)
 		layer.colors = [UIColor.purple.cgColor, UIColor.blue.cgColor]
 		layer.startPoint = CGPoint(x: 0.4, y: 0.4)
-		layer.endPoint = CGPoint(x: 1, y: 1.0)
+		layer.endPoint = CGPoint(x: 0.7, y: 0.8)
         view.layer.insertSublayer(layer, at: 0)
-		
+	
+		//formats buttons to have rounded corners
 		MexicanButton.layer.cornerRadius =  15
 		PizzaButton.layer.cornerRadius = 15
 		ChineseButton.layer.cornerRadius = 15
 		
 		
-        
 		locationManager.delegate = self
+		
+		//makes sure to request location permissions if not already allowed
 		if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || 	CLLocationManager.authorizationStatus() == .authorizedAlways){
 			locationManager.requestLocation()
 		}
@@ -107,7 +113,7 @@ class CategoriesViewController: UIViewController{
 	
 	
 	
-//food search functions
+    //food search functions
 	func SearchForMexicanFood(){
 		MexicanList.removeAll()
 		
@@ -153,19 +159,17 @@ class CategoriesViewController: UIViewController{
 			let location = CLLocation(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
 			let distance = self.locationManager.location!.distance(from: location)
 			self.ChineseList.append((item.name!, distance))}})
-		
-		
 	}
 }
 
 
+//override of default fucntions for location manager delegate
 extension CategoriesViewController: CLLocationManagerDelegate{
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("error")
 	}
 
-	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("permissions for location manager changed")
 		if (status == .authorizedWhenInUse || status == .authorizedAlways){
@@ -178,6 +182,5 @@ extension CategoriesViewController: CLLocationManagerDelegate{
 		SearchForMexicanFood()
 		SearchForPizzaFood()
 		SearchForChineseFood()
-		//print(MexicanList)
     }
 }
