@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 //allows global access to listOfFavorites
-var listOfFavorites: [String] = []
+var listOfFavorites: [(String, CLLocationDistance)] = []
 
 
 class ResultsViewController: UITableViewController{
@@ -54,15 +54,17 @@ class ResultsViewController: UITableViewController{
 	override func tableView(_ tableView: UITableView,
 		trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
 		let favoriteAction = UIContextualAction(style: .normal, title:  "Favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-			print("Update action ...")
-			self.addToFavorites(location: self.sentList[indexPath.item].0)
+				print("Update action ...")
+				self.addToFavorites(location: self.sentList[indexPath.item])
+				listOfFavorites.sort{if ($0.1 != $1.1){return ($0.1 < $1.1)} else{return $0.0 < $1.0}}
 			success(true)})
+		
 		   favoriteAction.backgroundColor = .orange
 		   return UISwipeActionsConfiguration(actions: [favoriteAction])
 	   }
 
 	
-	func addToFavorites(location: String){
+	func addToFavorites(location: (String, CLLocationDistance)){
 		listOfFavorites.append(location)
 		favVC?.tableView.reloadData()
 	}

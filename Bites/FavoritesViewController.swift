@@ -17,7 +17,8 @@ class FavoritesViewController: UITableViewController{
 	//fills cell with values in listoffavorites
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "StuffCell", for: indexPath)
-		cell.textLabel?.text = listOfFavorites[indexPath.item]
+		cell.textLabel?.text = listOfFavorites[indexPath.item].0
+		cell.detailTextLabel?.text = String(format: "%.2f", (listOfFavorites[indexPath.item].1) * 0.000621371192) +  " Miles"
 		return cell
 	}
 

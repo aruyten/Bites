@@ -24,8 +24,6 @@ class CategoriesViewController: UIViewController{
 	
     //create location manager
 	let locationManager = CLLocationManager()
-	
-	let distanceFormatter: MKDistanceFormatter = MKDistanceFormatter.init()
 
 	
 	//category button outlets
@@ -58,9 +56,10 @@ class CategoriesViewController: UIViewController{
 			CLLocationManager.authorizationStatus() == .authorizedAlways){
 			return true
 		}
+			
 		//otherwise it alerts the user that they need location permissions
 		else {
-			let alert = UIAlertController(title: "Location Required", message: "This is app requires access to this devices location to function ", preferredStyle: .alert)
+			let alert = UIAlertController(title: "Location Required", message: "This app requires access to your device's location to function ", preferredStyle: .alert)
 			alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
 			self.present(alert, animated: true, completion: nil)
 			return false
@@ -160,6 +159,12 @@ class CategoriesViewController: UIViewController{
 			let distance = self.locationManager.location!.distance(from: location)
 			self.ChineseList.append((item.name!, distance))}})
 	}
+	
+	func ClearResults(){
+		MexicanList = []
+		PizzaList = []
+		ChineseList = []
+	}
 }
 
 
@@ -179,6 +184,7 @@ extension CategoriesViewController: CLLocationManagerDelegate{
 	
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		print(manager.location!)
+		ClearResults()
 		SearchForMexicanFood()
 		SearchForPizzaFood()
 		SearchForChineseFood()
